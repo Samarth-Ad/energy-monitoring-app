@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../core/theme/app_pallet.dart';
+import '../../../core/theme/app_pallet.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

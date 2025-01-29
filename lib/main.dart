@@ -1,9 +1,10 @@
-import 'package:energy_app/features/sign_up.dart';
+import 'package:energy_app/features/Auth/Screens/sign_up.dart';
 import 'package:energy_app/firebase_options.dart';
+import 'package:energy_app/pages/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import 'features/loginPage.dart';
+import 'features/Auth/Screens/loginPage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         // '/home': (context) => const HomePage(), // Added route for HomePage
         // '/calculations': (context) => const calculationPage(), // Added route for CalculationsPage
       },
-      home: SignUpPage(), // Or set your desired initial screen here
+      home: MainPage(), // Or set your desired initial screen here
     );
   }
 }
