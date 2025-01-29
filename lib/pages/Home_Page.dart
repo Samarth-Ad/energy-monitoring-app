@@ -50,55 +50,48 @@ class _HomePageState extends State<HomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       drawer: Drawer(
-        backgroundColor: Colors.orange[300],
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              color: Colors.orange[300],
-              child: Row(children: [
-                Icon(
-                  Icons.settings,
-                  size: 32,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Settings",
-                    style: TextStyle(
-                      fontSize: 32,
-                    ),
+            // DrawerHeader(
+            //   decoration: BoxDecoration(
+            //     color: Colors.blue,
+            //   ),
+            //   child: const Text(
+            //     'Drawer Header',
+            //     style: TextStyle(
+            //       color: Colors.white,
+            //       fontSize: 24,
+            //     ),
+            //   ),
+            // ),
+            Expanded(
+              child: ListView(
+                children: [
+                  ListTile(
+                    leading: const Icon(Icons.home),
+                    title: const Text('Home'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                   ),
-                ),
-              ]),
-            ),
-            const SizedBox(
-              height: 700,
-            ),
-            Container(
-              color: Colors.orange[300],
-              child: Row(children: [
-                Icon(
-                  Icons.logout,
-                  size: 32,
-                ),
-                const SizedBox(
-                  width: 10,
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Logout",
-                    style: TextStyle(
-                      fontSize: 32,
-                    ),
+                  ListTile(
+                    leading: const Icon(Icons.settings),
+                    title: const Text('Settings'),
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
                   ),
-                ),
-              ]),
-            )
+                ],
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.pushReplacementNamed(context, '/login_with_state');
+              },
+            ),
           ],
         ),
       ),

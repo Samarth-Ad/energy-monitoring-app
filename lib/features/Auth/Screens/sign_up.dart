@@ -1,12 +1,13 @@
 import 'package:energy_app/Helpers/warning.dart';
 import 'package:energy_app/features/Auth/Screens/complete_profile.dart';
+import 'package:energy_app/pages/Home_Page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../../../core/theme/app_pallet.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
-
+  const SignUpPage({super.key, this.onTap});
+  final Function()? onTap;
   @override
   State<SignUpPage> createState() => _SignUpPageState();
 }
@@ -89,7 +90,7 @@ class _SignUpPageState extends State<SignUpPage> {
         context,
         MaterialPageRoute(
           builder: (context) =>
-              CompleteProfilePage(userId: userCredential.user!.uid),
+              HomePage(),
         ),
       );
     } catch (e) {

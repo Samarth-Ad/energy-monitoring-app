@@ -1,4 +1,5 @@
 import 'package:energy_app/features/Auth/Screens/sign_up.dart';
+import 'package:energy_app/features/AuthPage.dart';
 import 'package:energy_app/firebase_options.dart';
 import 'package:energy_app/pages/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
         // '/home': (context) => const HomePage(), // Added route for HomePage
         // '/calculations': (context) => const calculationPage(), // Added route for CalculationsPage
       },
-      home: MainPage(), // Or set your desired initial screen here
+      // home: AuthPage(), // Or set your desired initial screen here
+      home: SignUpPage(), // Or set your desired initial screen here
     );
   }
 }

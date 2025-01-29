@@ -1,10 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../core/theme/app_pallet.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+  const LoginPage({super.key, this.onTap});
+
+  final Function()? onTap;
 
   @override
   State<LoginPage> createState() => _LoginPage();
@@ -16,6 +18,45 @@ class _LoginPage extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
+
+  Future signUserIn() async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+    //try signi
+    try {
+      FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user_not_found') {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                backgroundColor: Colors.deepPurple,
+                title: Text('incorrect email'),
+              );
+            });
+      } else if (e.code == 'wrong password') {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                backgroundColor: Colors.deepPurple,
+                title: Text('incorrect password'),
+              );
+            });
+      }
+    }
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +73,11 @@ class _LoginPage extends State<LoginPage> {
               Align(
                 alignment: Alignment.topLeft,
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: AppPalette.secondaryColor),
+                  icon: const Icon(Icons.arrow_back,
+                      color: AppPalette.secondaryColor),
                   onPressed: () {
-                    Navigator.pop(context); // Navigate back to the previous page
+                    Navigator.pop(
+                        context); // Navigate back to the previous page
                   },
                 ),
               ),
@@ -54,7 +97,8 @@ class _LoginPage extends State<LoginPage> {
 
               // Toggle between Email/Password and Phone/OTP login
               SwitchListTile(
-                title: Text(isEmailLogin ? "Login with Email" : "Login with Phone"),
+                title: Text(
+                    isEmailLogin ? "Login with Email" : "Login with Phone"),
                 value: isEmailLogin,
                 onChanged: (value) {
                   setState(() {
@@ -70,7 +114,8 @@ class _LoginPage extends State<LoginPage> {
                   controller: emailController,
                   decoration: InputDecoration(
                     labelText: "Email Address",
-                    prefixIcon: Icon(Icons.email, color: AppPalette.secondaryColor),
+                    prefixIcon:
+                        Icon(Icons.email, color: AppPalette.secondaryColor),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -79,7 +124,8 @@ class _LoginPage extends State<LoginPage> {
                   controller: passwordController,
                   decoration: InputDecoration(
                     labelText: "Password",
-                    prefixIcon: Icon(Icons.lock, color: AppPalette.secondaryColor),
+                    prefixIcon:
+                        Icon(Icons.lock, color: AppPalette.secondaryColor),
                   ),
                   obscureText: true,
                 ),
@@ -89,7 +135,8 @@ class _LoginPage extends State<LoginPage> {
                   controller: phoneNumberController,
                   decoration: InputDecoration(
                     labelText: "Phone Number",
-                    prefixIcon: Icon(Icons.phone, color: AppPalette.secondaryColor),
+                    prefixIcon:
+                        Icon(Icons.phone, color: AppPalette.secondaryColor),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -98,7 +145,8 @@ class _LoginPage extends State<LoginPage> {
                   controller: otpController,
                   decoration: InputDecoration(
                     labelText: "OTP",
-                    prefixIcon: Icon(Icons.lock, color: AppPalette.secondaryColor),
+                    prefixIcon:
+                        Icon(Icons.lock, color: AppPalette.secondaryColor),
                   ),
                   obscureText: true,
                 ),
@@ -108,6 +156,7 @@ class _LoginPage extends State<LoginPage> {
               // Proceed Button
               ElevatedButton(
                 onPressed: () {
+                  signUserIn();
                   // Handle login logic here
                   if (isEmailLogin) {
                     final email = emailController.text;
