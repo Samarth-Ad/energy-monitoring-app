@@ -3,7 +3,6 @@ import 'package:energy_app/firebase_options.dart';
 import 'package:energy_app/pages/main_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import 'features/Auth/Screens/loginPage.dart';
 
 void main() async {
